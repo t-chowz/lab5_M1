@@ -2,7 +2,7 @@ package com.example.lab5_m1;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
+import android.util.Log;
 
 
 import java.util.ArrayList;
@@ -42,6 +42,26 @@ public class DBHelper{
     public void saveNotes(String username, String title, String content, String date){
         createTable();
         sqLiteDatabase.execSQL(String.format("INSERT INTO notes (username, date, title, content) VALUES ('%s', '%s', '%s', '%s')", username, date, title, content));
+        Cursor c = sqLiteDatabase.rawQuery(String.format("SELECT * from notes where username like '%s'", username), null);
+        int dateIndex = c.getColumnIndex("date");
+        int titleIndex = c.getColumnIndex("title");
+        int contentIndex = c.getColumnIndex("content");
+        c.moveToFirst();
+
+        ArrayList<Note> notesList = new ArrayList<>();
+
+        while(!c.isAfterLast()){
+            String title1 = c.getString(titleIndex);
+            String date1 = c.getString(dateIndex);
+            String content1 = c.getString(contentIndex);
+            Log.i("msg", "print note " + title1 + date1 + content1);
+
+            c.moveToNext();
+        }
+        c.close();
+        sqLiteDatabase.close();
+
+
     }
     public void updateNote(String title, String date, String content, String username){
         createTable();

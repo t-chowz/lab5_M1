@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -26,8 +27,9 @@ public class notes extends AppCompatActivity {
         //3. Initialize DBHelper class
         DBHelper dbHelper = new DBHelper(sqLiteDatabase);
         //4. Set username in the following variable by fetching it from shared Preferences
-        //TODO:
-        String username = "test username";
+
+        SharedPreferences sharedPreferences = getSharedPreferences("com.example.lab5_m1", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
         //5. Save information to database
         String title;
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");

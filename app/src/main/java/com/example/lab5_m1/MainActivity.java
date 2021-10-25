@@ -11,19 +11,19 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String usernameKey;
+    public static String username;
 
     public void getInfo(View view){
         //1. Get Username and password via Edit Text
         EditText editTextUserName = (EditText) findViewById(R.id.editTextUserName);
-        usernameKey = editTextUserName.getText().toString();
-        //goToHome(usernameKey);
+        username = editTextUserName.getText().toString();
+        goToHome(username);
         //2. add username to shared preferences
         SharedPreferences sharedPreferences = getSharedPreferences("com.example.lab5_m1", Context.MODE_PRIVATE);
-        sharedPreferences.edit().putString("username", usernameKey).apply();
+        sharedPreferences.edit().putString("username", username).apply();
         //3. start second activity
         Intent intent = new Intent(this, homePage.class);
-//        startActivity(intent);
+        startActivity(intent);
 
 
     }
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         String usernameKey = "username";
 
     //TODO:
@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
             //Get the name of that user from SharedPreferences using sharedPreferences.getString(user
             sharedPreferences.getString(usernameKey, "");
             //use intent to start the second activity to welcome the user
+            Intent intent = new Intent(this, homePage.class);
+            startActivity(intent);
         } else{
             //SharedPreferences object has no user key set
             //start screen1, that is the main activity

@@ -31,9 +31,10 @@ public class homePage extends AppCompatActivity {
         //display welcome message
         textView2 = (TextView) findViewById(R.id.textView2);
         Intent intent = getIntent();
-        String str = intent.getStringExtra("value");
+        //String str = intent.getStringExtra("value");
         //testing sharedPreferences
-
+        SharedPreferences sharedPreferences = getSharedPreferences("com.example.lab5_m1", Context.MODE_PRIVATE);
+        String str = sharedPreferences.getString("username", "");
         textView2.setText("Welcome " + str + "!");
         //Get SQLDatabase Instance
         Context context = getApplicationContext();
@@ -82,7 +83,7 @@ public class homePage extends AppCompatActivity {
                //switch screens
                Intent logout = new Intent(this, MainActivity.class);
                SharedPreferences sharedPreferences = getSharedPreferences("com.example.lab5_m1", Context.MODE_PRIVATE);
-               sharedPreferences.edit().remove(MainActivity.usernameKey).apply();
+               sharedPreferences.edit().remove("username").apply();
                startActivity(logout);
                return true;
            default:
